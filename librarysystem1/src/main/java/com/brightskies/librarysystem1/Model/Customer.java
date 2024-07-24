@@ -1,4 +1,11 @@
 package com.brightskies.librarysystem1.Model;
 
-public class Customer extends Human{
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+
+@Component
+public class Customer extends Human {
+    private ArrayList<Book> reservedBooks;
+
 }
