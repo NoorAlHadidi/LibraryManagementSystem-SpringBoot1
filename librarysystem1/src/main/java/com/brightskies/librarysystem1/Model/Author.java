@@ -24,4 +24,8 @@ public class Author extends Human {
         super(fName, lName);
         this.written = written;
     }
+
+    public ArrayList<Book> getWritten() {
+        return this.written;
+    }
 }
