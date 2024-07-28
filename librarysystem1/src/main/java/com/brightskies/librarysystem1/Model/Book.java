@@ -1,23 +1,22 @@
 package com.brightskies.librarysystem1.Model;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
 @Component
 public class Book {
-    private String bookID;
-    private String bookTitle;
-    private Author bookAuthor;
-    private String bookGenre;
-    private Customer bookCustomer;
+    private String id;
+    private String title;
+    private Author author;
+    private String genre;
+    private Customer customer;
+
+    @Autowired
     public Book(String id, String title, Author author, String genre) {
-        this.bookID = id;
-        this.bookTitle = title;
-        this.bookAuthor = author;
-        this.bookGenre = genre;
-        this.bookCustomer = null;
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.customer = null;
     }
 }

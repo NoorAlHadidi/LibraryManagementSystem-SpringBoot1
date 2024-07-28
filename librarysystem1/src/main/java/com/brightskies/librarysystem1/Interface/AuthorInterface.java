@@ -4,6 +4,6 @@ import com.brightskies.librarysystem1.Model.Author;
 
 public interface AuthorInterface {
     public Author findAuthor(String fName, String lName);
-    public void addAuthor(Author newAuthor);
+    public void addAuthor(Author author);
     public void removeAuthor(Author author);
 }
