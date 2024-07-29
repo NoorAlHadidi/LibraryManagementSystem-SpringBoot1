@@ -44,7 +44,7 @@ public class CustomerController {
                 Customer customer = new Customer(first, last);
                 customerService.addCustomer(customer);
             }
-            bookService.findBook(book.getID()).get().setCustomer(customerService.findCustomer(first, last).get());
+            customerService.reserveBook(customerService.findCustomer(first, last).get(), bookService.findBook(book.getID()).get());
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
