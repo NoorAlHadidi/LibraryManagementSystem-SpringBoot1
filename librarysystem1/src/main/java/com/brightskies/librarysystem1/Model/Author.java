@@ -1,35 +1,23 @@
 package com.brightskies.librarysystem1.Model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 @Component
 public class Author extends Human {
-    private ArrayList<Book> written;
 
     public Author() {
         super();
     }
 
-    @Autowired
-    public Author(String fName, String lName, int age, ArrayList<Book> written) {
+    public Author(String fName, String lName, int age) {
         super(fName, lName, age);
-        this.written = written;
     }
 
-    @Autowired
-    public Author(String fName, String lName, ArrayList<Book> written) {
+    public Author(String fName, String lName) {
         super(fName, lName);
-        this.written = written;
     }
 
-    public ArrayList<Book> getWritten() {
-        return this.written;
-    }
-
-    public void setWritten(ArrayList<Book> written) {
-        this.written = written;
+    public boolean sameAs(Author author) {
+        return this.getFirst().equals(author.getFirst()) && this.getLast().equals(author.getLast());
     }
 }

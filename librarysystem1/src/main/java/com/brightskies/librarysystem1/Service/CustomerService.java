@@ -47,8 +47,8 @@ public class CustomerService implements CustomerInterface {
 
     @Override
     public void reserveBook(Customer customer, Book book) {
-        ArrayList<Book> reserved = customer.getReserved();
-        reserved.add(book);
-        customer.setReserved(reserved);
+        if(book.getCustomer().isEmpty()) {
+            book.setCustomer(customer);
+        }
     }
 }

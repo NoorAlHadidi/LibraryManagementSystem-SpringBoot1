@@ -44,10 +44,4 @@ public class AuthorService implements AuthorInterface {
         authors.remove(author);
     }
 
-    @Override
-    public void writeBook(Author author, Book book) {
-        ArrayList<Book> written = author.getWritten();
-        written.add(book);
-        author.setWritten(written);
-    }
 }

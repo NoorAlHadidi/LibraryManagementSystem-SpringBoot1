@@ -28,7 +28,6 @@ public class BookController {
             if (authorService.findAuthor(book.getAuthor().getFirst(), book.getAuthor().getLast()).isEmpty()) {
                 authorService.addAuthor(book.getAuthor());
             }
-            authorService.writeBook(book.getAuthor(), book);
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

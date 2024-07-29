@@ -8,6 +8,4 @@ import java.util.Optional;
 public interface AuthorInterface {
     public Optional<Author> findAuthor(String fName, String lName);
     public void addAuthor(Author author);
-    public void removeAuthor(Author author);
-    public void writeBook(Author author, Book book);
-}
+    public void removeAuthor(Author author);}

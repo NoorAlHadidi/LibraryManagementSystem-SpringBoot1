@@ -52,6 +52,12 @@ public class BookService implements BookInterface {
 
     @Override
     public ArrayList<Book> retrieveBook(Author author) {
-        return author.getWritten();
+        ArrayList<Book> authorBooks = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getAuthor().sameAs(author)) {
+                authorBooks.add(book);
+            }
+        }
+        return authorBooks;
     }
 }
