@@ -1,6 +1,7 @@
 package com.brightskies.librarysystem1.Config;
 
 import com.brightskies.librarysystem1.Model.*;
+import com.brightskies.librarysystem1.Service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,6 +10,10 @@ import java.util.ArrayList;
 @Configuration
 public class AppConfig {
     @Bean
+    public Book book() {
+        return new Book();
+    }
+    @Bean
     public Author author() {
         return new Author();
     }
@@ -16,7 +21,7 @@ public class AppConfig {
     public Customer customer() {
         return new Customer();
     }
-    @Bean
+    /*@Bean
     public ArrayList<Book> books() {
         return new ArrayList<Book>();
     }
@@ -27,7 +32,7 @@ public class AppConfig {
     @Bean
     public ArrayList<Customer> customers() {
         return new ArrayList<Customer>();
-    }
+    }*/
     @Bean
     public ArrayList<Book> reserved() {
         return new ArrayList<Book>();
@@ -35,5 +40,17 @@ public class AppConfig {
     @Bean
     public ArrayList<Book> written() {
         return new ArrayList<Book>();
+    }
+    @Bean
+    public BookService bookService() {
+        return new BookService();
+    }
+    @Bean
+    public AuthorService authorService() {
+        return new AuthorService();
+    }
+    @Bean
+    public CustomerService customerService() {
+        return new CustomerService();
     }
 }

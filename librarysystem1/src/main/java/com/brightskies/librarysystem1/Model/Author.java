@@ -28,4 +28,8 @@ public class Author extends Human {
     public ArrayList<Book> getWritten() {
         return this.written;
     }
+
+    public void setWritten(ArrayList<Book> written) {
+        this.written = written;
+    }
 }

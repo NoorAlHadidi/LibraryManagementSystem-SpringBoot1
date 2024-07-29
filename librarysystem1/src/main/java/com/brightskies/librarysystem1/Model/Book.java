@@ -1,5 +1,6 @@
 package com.brightskies.librarysystem1.Model;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,10 @@ public class Book {
     private Author author;
     private String genre;
     private Customer customer;
+
+    public Book() {
+
+    }
 
     @Autowired
     public Book(String id, String title, Author author, String genre) {

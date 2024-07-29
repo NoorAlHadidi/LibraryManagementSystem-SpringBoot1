@@ -24,4 +24,12 @@ public class Customer extends Human {
         super(fName, lName);
         this.reserved = reserved;
     }
+
+    public ArrayList<Book> getReserved() {
+        return this.reserved;
+    }
+
+    public void setReserved(ArrayList<Book> reserved) {
+        this.reserved = reserved;
+    }
 }

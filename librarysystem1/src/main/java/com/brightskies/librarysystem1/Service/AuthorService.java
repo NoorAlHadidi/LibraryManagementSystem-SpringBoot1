@@ -2,6 +2,7 @@ package com.brightskies.librarysystem1.Service;
 
 import com.brightskies.librarysystem1.Interface.AuthorInterface;
 import com.brightskies.librarysystem1.Model.Author;
+import com.brightskies.librarysystem1.Model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,14 @@ import java.util.Optional;
 public class AuthorService implements AuthorInterface {
     private ArrayList<Author> authors;
 
-    @Autowired
-    public AuthorService(ArrayList<Author> authors) {
-        this.authors = authors;
+    public AuthorService() {
+        this.authors = new ArrayList<>();
     }
+
+    /*@Autowired
+    public void setAuthors(ArrayList<Author> authors) {
+        this.authors = authors;
+    }*/
 
     @Override
     public Optional<Author> findAuthor(String fName, String lName) {
@@ -37,5 +42,12 @@ public class AuthorService implements AuthorInterface {
     @Override
     public void removeAuthor(Author author) {
         authors.remove(author);
+    }
+
+    @Override
+    public void writeBook(Author author, Book book) {
+        ArrayList<Book> written = author.getWritten();
+        written.add(book);
+        author.setWritten(written);
     }
 }
