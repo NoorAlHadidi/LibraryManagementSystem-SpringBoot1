@@ -9,7 +9,7 @@ import java.util.Optional;
 @Component
 public class Book {
 
-    private String id;
+    private int id;
     private String title;
     private Author author;
     private String genre;
@@ -20,7 +20,7 @@ public class Book {
     }
 
     @Autowired
-    public Book(String id, String title, Author author, String genre) {
+    public Book(int id, String title, Author author, String genre) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -28,7 +28,7 @@ public class Book {
         this.customer = null;
     }
 
-    public String getID() {
+    public int getID() {
         return this.id;
     }
 

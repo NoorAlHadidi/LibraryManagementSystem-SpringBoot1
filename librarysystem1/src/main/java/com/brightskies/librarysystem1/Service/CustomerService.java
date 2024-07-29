@@ -1,14 +1,15 @@
 package com.brightskies.librarysystem1.Service;
 
+import com.brightskies.librarysystem1.DTO.AuthorDTO;
+import com.brightskies.librarysystem1.DTO.CustomerDTO;
 import com.brightskies.librarysystem1.Interface.CustomerInterface;
-import com.brightskies.librarysystem1.Model.Author;
 import com.brightskies.librarysystem1.Model.Book;
 import com.brightskies.librarysystem1.Model.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService implements CustomerInterface {
@@ -22,6 +23,11 @@ public class CustomerService implements CustomerInterface {
     public void setCustomers(ArrayList<Customer> customers) {
         this.customers = customers;
     }*/
+
+    @Override
+    public ArrayList<CustomerDTO> displayCustomers() {
+        return (this.customers).stream().map(customer -> new CustomerDTO(customer.getFirst(), customer.getLast())).collect(Collectors.toCollection(ArrayList::new));
+    }
 
     @Override
     public Optional<Customer> findCustomer(String fName, String lName) {
@@ -51,4 +57,5 @@ public class CustomerService implements CustomerInterface {
             book.setCustomer(customer);
         }
     }
+
 }

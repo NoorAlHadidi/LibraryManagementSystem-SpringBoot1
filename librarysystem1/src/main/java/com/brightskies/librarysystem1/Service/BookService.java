@@ -1,14 +1,14 @@
 package com.brightskies.librarysystem1.Service;
 
+import com.brightskies.librarysystem1.DTO.BookDTO;
 import com.brightskies.librarysystem1.Interface.BookInterface;
 import com.brightskies.librarysystem1.Model.Author;
 import com.brightskies.librarysystem1.Model.Book;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService implements BookInterface {
@@ -24,10 +24,10 @@ public class BookService implements BookInterface {
     }*/
 
     @Override
-    public Optional<Book> findBook(String id) {
+    public Optional<Book> findBook(String title) {
         Book result = null;
         for (Book tempBook : books) {
-            if ((tempBook.getID()).equals(id)) {
+            if ((tempBook.getTitle()).equals(title)) {
                 result = tempBook;
                 break;
             }
@@ -46,18 +46,18 @@ public class BookService implements BookInterface {
     }
 
     @Override
-    public ArrayList<Book> displayBooks() {
-        return books;
+    public ArrayList<BookDTO> displayBooks() {
+        return (this.books).stream().map(book -> new BookDTO(book.getTitle(), book.getAuthor().getFirst(), book.getAuthor().getLast(), book.getGenre())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
-    public ArrayList<Book> retrieveBook(Author author) {
+    public ArrayList<BookDTO> retrieveBooks(Author author) {
         ArrayList<Book> authorBooks = new ArrayList<>();
         for (Book book : books) {
             if (book.getAuthor().sameAs(author)) {
                 authorBooks.add(book);
             }
         }
-        return authorBooks;
+        return (authorBooks).stream().map(book -> new BookDTO(book.getTitle(), book.getAuthor().getFirst(), book.getAuthor().getLast(), book.getGenre())).collect(Collectors.toCollection(ArrayList::new));
     }
 }

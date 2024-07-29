@@ -1,5 +1,6 @@
 package com.brightskies.librarysystem1.Controller;
 
+import com.brightskies.librarysystem1.DTO.CustomerDTO;
 import com.brightskies.librarysystem1.Model.Book;
 import com.brightskies.librarysystem1.Model.Customer;
 import com.brightskies.librarysystem1.Service.BookService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RequestMapping("/api/customer")
 @RestController
@@ -49,4 +52,8 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping("/display")
+    public ResponseEntity<ArrayList<CustomerDTO>> displayCustomers() {
+        return ResponseEntity.ok(customerService.displayCustomers());
+    }
 }

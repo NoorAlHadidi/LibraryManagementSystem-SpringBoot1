@@ -1,5 +1,6 @@
 package com.brightskies.librarysystem1.Controller;
 
+import com.brightskies.librarysystem1.DTO.BookDTO;
 import com.brightskies.librarysystem1.Model.*;
 import com.brightskies.librarysystem1.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BookController {
 
     @PostMapping("/add")
     public ResponseEntity<Void> addBook(@RequestBody Book book) {
-        if (bookService.findBook(book.getID()).isEmpty()) {
+        if (bookService.findBook(book.getTitle()).isEmpty()) {
             bookService.addBook(book);
             if (authorService.findAuthor(book.getAuthor().getFirst(), book.getAuthor().getLast()).isEmpty()) {
                 authorService.addAuthor(book.getAuthor());
@@ -41,13 +42,13 @@ public class BookController {
     }
 
     @GetMapping("/display")
-    public ResponseEntity<ArrayList<Book>> displayBooks() {
+    public ResponseEntity<ArrayList<BookDTO>> displayBooks() {
         return ResponseEntity.ok(bookService.displayBooks());
     }
 
     @GetMapping("/retrieve/{first}/{last}")
-    public ResponseEntity<ArrayList<Book>> retrieveBooks(@PathVariable String first, @PathVariable String last) {
-        return ResponseEntity.ok(bookService.retrieveBook(authorService.findAuthor(first, last).get()));
+    public ResponseEntity<ArrayList<BookDTO>> retrieveBooks(@PathVariable String first, @PathVariable String last) {
+        return ResponseEntity.ok(bookService.retrieveBooks(authorService.findAuthor(first, last).get()));
     }
 
 }

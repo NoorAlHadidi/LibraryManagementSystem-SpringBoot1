@@ -1,12 +1,14 @@
 package com.brightskies.librarysystem1.Controller;
 
-import com.brightskies.librarysystem1.Model.Book;
+import com.brightskies.librarysystem1.DTO.AuthorDTO;
 import com.brightskies.librarysystem1.Model.Author;
 import com.brightskies.librarysystem1.Service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RequestMapping("/api/author")
 @RestController
@@ -34,4 +36,8 @@ public class AuthorController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping("/display")
+    public ResponseEntity<ArrayList<AuthorDTO>> displayAuthors() {
+        return ResponseEntity.ok(authorService.displayAuthors());
+    }
 }

@@ -1,13 +1,13 @@
 package com.brightskies.librarysystem1.Service;
 
+import com.brightskies.librarysystem1.DTO.AuthorDTO;
 import com.brightskies.librarysystem1.Interface.AuthorInterface;
 import com.brightskies.librarysystem1.Model.Author;
-import com.brightskies.librarysystem1.Model.Book;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService implements AuthorInterface {
@@ -21,6 +21,11 @@ public class AuthorService implements AuthorInterface {
     public void setAuthors(ArrayList<Author> authors) {
         this.authors = authors;
     }*/
+
+    @Override
+    public ArrayList<AuthorDTO> displayAuthors() {
+        return (this.authors).stream().map(author -> new AuthorDTO(author.getFirst(), author.getLast())).collect(Collectors.toCollection(ArrayList::new));
+    }
 
     @Override
     public Optional<Author> findAuthor(String fName, String lName) {
