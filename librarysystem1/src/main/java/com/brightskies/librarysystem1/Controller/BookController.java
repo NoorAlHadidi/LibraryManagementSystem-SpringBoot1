@@ -34,10 +34,10 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    @DeleteMapping("/remove/{id}")
-    public ResponseEntity<Void> removeBook(@PathVariable String id) {
-        if (bookService.findBook(id).isPresent()) {
-            bookService.removeBook(bookService.findBook(id).get());
+    @DeleteMapping("/remove/{title}")
+    public ResponseEntity<Void> removeBook(@PathVariable String title) {
+        if (bookService.findBook(title).isPresent()) {
+            bookService.removeBook(bookService.findBook(title).get());
             return ResponseEntity.status(HttpStatus.OK).build();
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

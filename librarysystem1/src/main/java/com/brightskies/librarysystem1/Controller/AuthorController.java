@@ -24,16 +24,18 @@ public class AuthorController {
     public ResponseEntity<Void> addAuthor(@RequestBody Author author) {
         if (authorService.findAuthor(author.getFirst(), author.getLast()).isEmpty()) {
             authorService.addAuthor(author);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @DeleteMapping("/remove/{first}/{last}")
     public ResponseEntity<Void> removeAuthor(@PathVariable String first, @PathVariable String last) {
         if (authorService.findAuthor(first, last).isPresent()) {
             authorService.removeAuthor(authorService.findAuthor(first, last).get());
+            return ResponseEntity.status(HttpStatus.OK).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/display")

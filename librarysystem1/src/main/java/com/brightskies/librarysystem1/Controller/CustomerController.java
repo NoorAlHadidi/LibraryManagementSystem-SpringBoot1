@@ -28,28 +28,34 @@ public class CustomerController {
     public ResponseEntity<Void> addCustomer(@RequestBody Customer customer) {
         if (customerService.findCustomer(customer.getFirst(), customer.getLast()).isEmpty()) {
             customerService.addCustomer(customer);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping("/remove/{first}/{last}")
     public ResponseEntity<Void> removeCustomer(@PathVariable String first, @PathVariable String last) {
         if (customerService.findCustomer(first, last).isPresent()) {
             customerService.removeCustomer(customerService.findCustomer(first, last).get());
+            return ResponseEntity.status(HttpStatus.OK).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PatchMapping("/reserve/{first}/{last}")
     public ResponseEntity<Void> reserveBook(@RequestBody Book book, @PathVariable String first, @PathVariable String last) {
-        if(bookService.findBook(book.getID()).isPresent()) {
+        if(bookService.findBook(book.getTitle()).isPresent()) {
             if (customerService.findCustomer(first, last).isEmpty()) {
                 Customer customer = new Customer(first, last);
                 customerService.addCustomer(customer);
             }
-            customerService.reserveBook(customerService.findCustomer(first, last).get(), bookService.findBook(book.getID()).get());
+            if (bookService.findBook(book.getTitle()).get().getCustomer().isEmpty()) {
+                customerService.reserveBook(customerService.findCustomer(first, last).get(), bookService.findBook(book.getTitle()).get());
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/display")
