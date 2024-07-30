@@ -29,16 +29,18 @@ public class BookController {
             if (authorService.findAuthor(book.getAuthor().getFirst(), book.getAuthor().getLast()).isEmpty()) {
                 authorService.addAuthor(book.getAuthor());
             }
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<Void> removeBook(@PathVariable String id) {
         if (bookService.findBook(id).isPresent()) {
             bookService.removeBook(bookService.findBook(id).get());
+            return ResponseEntity.status(HttpStatus.OK).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/display")
@@ -48,7 +50,10 @@ public class BookController {
 
     @GetMapping("/retrieve/{first}/{last}")
     public ResponseEntity<ArrayList<BookDTO>> retrieveBooks(@PathVariable String first, @PathVariable String last) {
-        return ResponseEntity.ok(bookService.retrieveBooks(authorService.findAuthor(first, last).get()));
+        if(authorService.findAuthor(first, last).isPresent()) {
+            return ResponseEntity.ok(bookService.retrieveBooks(authorService.findAuthor(first, last).get()));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 }
